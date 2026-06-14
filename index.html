@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>森炫食材商行 - 新鲜食材 产地直发</title>
+
+  <!-- Open Graph 微信分享卡片 -->
+  <meta property="og:title" content="森炫食材商行">
+  <meta property="og:description" content="王振超-16888888888">
+  <meta property="og:image" content="images/logo.jpg">
+  <meta property="og:type" content="website">
+
+  <style>
+    /* ========== CSS Variables ========== */
+    :root {
+      --green-dark: #1B813E;
+      --green: #2DB84B;
+      --green-light: #E8F5E9;
+      --gold: #F5A623;
+      --gold-light: #FFF3E0;
+      --red: #E4393C;
+      --cream: #FFFDF7;
+      --white: #FFFFFF;
+      --gray-100: #F5F5F5;
+      --gray-300: #D9D9D9;
+      --gray-500: #8C8C8C;
+      --gray-700: #595959;
+      --gray-900: #262626;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    /* ========== Reset & Base ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--cream);
+      color: var(--gray-900);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 60px;
+    }
+
+    /* ========== Store Header ========== */
+    .store-header {
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      color: var(--white);
+      padding: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(27,129,62,0.3);
+    }
+    .store-header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .store-header .contact {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+    .store-header .contact span {
+      margin-right: 12px;
+    }
+
+    /* ========== Banner Carousel ========== */
+    .banner-section {
+      padding: 12px;
+      position: relative;
+    }
+    .banner-carousel {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      aspect-ratio: 2.1 / 1;
+      background: var(--gray-100);
+    }
+    .banner-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      height: 100%;
+    }
+    .banner-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .banner-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      text-align: center;
+      padding: 20px;
+    }
+    .banner-placeholder:nth-child(1) { background: linear-gradient(135deg, #43A047, #66BB6A); }
+    .banner-placeholder:nth-child(2) { background: linear-gradient(135deg, #0288D1, #4FC3F7); }
+    .banner-placeholder:nth-child(3) { background: linear-gradient(135deg, #F57C00, #FFB74D); }
+    .banner-placeholder .banner-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .banner-placeholder .banner-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .banner-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+    .banner-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      transition: all 0.3s;
+    }
+    .banner-dots span.active {
+      background: var(--white);
+      width: 18px;
+      border-radius: 3px;
+    }
+
+    /* ========== Main Content: Sidebar + Products ========== */
+    .main-content {
+      display: flex;
+      min-height: calc(100vh - 200px);
+    }
+
+    /* Left Category Sidebar */
+    .category-sidebar {
+      width: 80px;
+      min-width: 80px;
+      background: var(--white);
+      border-right: 1px solid var(--gray-100);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      flex-shrink: 0;
+    }
+    .category-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 4px;
+      font-size: 0.75rem;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+      text-align: center;
+      line-height: 1.3;
+      user-select: none;
+    }
+    .category-item:active {
+      background: var(--green-light);
+    }
+    .category-item.active {
+      color: var(--green-dark);
+      background: var(--green-light);
+      border-left-color: var(--green-dark);
+      font-weight: 600;
+    }
+    .category-item .cat-icon {
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+
+    /* Right Product Grid */
+    .product-area {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .product-card:active {
+      transform: scale(0.97);
+    }
+    .product-card .product-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: var(--gray-100);
+    }
+    .product-card .product-img-placeholder {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--green-light), #f1f8e9);
+    }
+    .product-card .product-info {
+      padding: 8px 10px 10px;
+    }
+    .product-card .product-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      line-height: 1.3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .product-card .product-spec {
+      font-size: 0.7rem;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+    .product-card .product-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .product-card .product-tag {
+      font-size: 0.6rem;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      border: 1px solid #C8E6C9;
+    }
+    .product-card .product-tag.sale {
+      background: #FFF3E0;
+      color: #E65100;
+      border-color: #FFE0B2;
+    }
+    .product-card .product-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .product-card .product-price {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--red);
+    }
+    .product-card .product-price .yen {
+      font-size: 0.75rem;
+    }
+    .product-card .product-original-price {
+      font-size: 0.65rem;
+      color: var(--gray-500);
+      text-decoration: line-through;
+      margin-left: 4px;
+    }
+    .product-card .buy-btn {
+      font-size: 0.65rem;
+      padding: 3px 8px;
+      border: none;
+      border-radius: 12px;
+      background: var(--gold);
+      color: var(--white);
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .product-card .buy-btn:active {
+      background: #E09600;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray-500);
+      font-size: 0.9rem;
+      grid-column: 1 / -1;
+    }
+
+    /* ========== Bottom Action Bar ========== */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+      display: flex;
+      z-index: 100;
+      padding: 8px 12px;
+      gap: 10px;
+    }
+    .bottom-bar .action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 0;
+      border-radius: 22px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      text-decoration: none;
+    }
+    .bottom-bar .action-btn:active {
+      opacity: 0.85;
+    }
+    .bottom-bar .btn-contact {
+      background: var(--green-light);
+      color: var(--green-dark);
+      border: 1px solid var(--green);
+    }
+    .bottom-bar .btn-order {
+      background: linear-gradient(135deg, var(--gold), #FFB300);
+      color: var(--white);
+    }
+
+    /* ========== Popup Modal ========== */
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .popup-overlay.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+    .popup-content {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 320px;
+      overflow: hidden;
+      animation: scaleIn 0.3s ease;
+      position: relative;
+    }
+    .popup-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      background: linear-gradient(135deg, #43A047, #66BB6A);
+    }
+    .popup-image-placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      color: var(--white);
+    }
+    .popup-body {
+      padding: 16px 20px 20px;
+    }
+    .popup-body h3 {
+      font-size: 1.1rem;
+      color: var(--green-dark);
+      margin-bottom: 12px;
+    }
+    .popup-body .activity-item {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      padding: 6px 0;
+      border-bottom: 1px dashed var(--gray-300);
+    }
+    .popup-body .activity-item:last-child {
+      border-bottom: none;
+    }
+    .popup-close {
+      display: block;
+      margin: 12px auto 0;
+      padding: 8px 32px;
+      background: var(--green-dark);
+      color: var(--white);
+      border: none;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .popup-close:active {
+      background: #155A2E;
+    }
+    .popup-x {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.4);
+      color: var(--white);
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .popup-x:active {
+      background: rgba(0,0,0,0.6);
+    }
+
+    /* ========== Animations ========== */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes scaleIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* ========== Responsive: Tablet ========== */
+    @media (min-width: 768px) {
+      .category-sidebar {
+        width: 100px;
+        min-width: 100px;
+      }
+      .category-item {
+        font-size: 0.85rem;
+        padding: 16px 8px;
+      }
+      .category-item .cat-icon {
+        font-size: 1.6rem;
+      }
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .product-card .product-name {
+        font-size: 0.9rem;
+      }
+      .product-card .product-price {
+        font-size: 1.15rem;
+      }
+      .bottom-bar {
+        padding: 10px 20%;
+      }
+    }
+
+    /* ========== Responsive: Desktop ========== */
+    @media (min-width: 1024px) {
+      .store-header {
+        padding: 16px 24px;
+      }
+      .store-header h1 {
+        font-size: 1.4rem;
+      }
+      .banner-section {
+        padding: 16px 24px;
+      }
+      .main-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .category-sidebar {
+        width: 110px;
+        min-width: 110px;
+      }
+      .category-item {
+        font-size: 0.9rem;
+        padding: 18px 10px;
+      }
+      .product-area {
+        padding: 16px 20px;
+      }
+      .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .product-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+      .bottom-bar {
+        padding: 10px 30%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Store Header -->
+  <header class="store-header">
+    <h1>🌿 森炫食材商行</h1>
+    <div class="contact">
+      <span>👤 王振超</span>
+      <span>📱 16888888888</span>
+    </div>
+  </header>
+
+  <!-- Banner Carousel -->
+  <section class="banner-section">
+    <div class="banner-carousel">
+      <div class="banner-track" id="bannerTrack">
+        <!-- Slides will be injected by JS -->
+      </div>
+      <div class="banner-dots" id="bannerDots"></div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Category Sidebar -->
+    <nav class="category-sidebar" id="categorySidebar">
+      <!-- Categories will be injected by JS -->
+    </nav>
+
+    <!-- Product Area -->
+    <section class="product-area">
+      <div class="product-grid" id="productGrid">
+        <!-- Products will be injected by JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Action Bar -->
+  <footer class="bottom-bar">
+    <a class="action-btn btn-contact" href="tel:16888888888">
+      📞 联系我们
+    </a>
+    <a class="action-btn btn-order" href="tel:16888888888">
+      🛒 立即订购
+    </a>
+  </footer>
+
+  <!-- Activity Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+      <button class="popup-x" id="popupX" aria-label="关闭">✕</button>
+      <div id="popupImageArea"></div>
+      <div class="popup-body">
+        <h3 id="popupTitle"></h3>
+        <div id="popupItems"></div>
+        <button class="popup-close" id="popupClose">我知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========== Data & State ==========
+    let storeData = null;
+    let currentCategory = 'all';
+    let bannerIndex = 0;
+    let bannerTimer = null;
+
+    // Category icons mapping
+    const categoryIcons = {
+      'all': '📋',
+      'fruit': '🍎',
+      'vegetable': '🥬',
+      'seafood': '🦐',
+      'meat': '🥩',
+      'dairy': '🥛',
+      'grain': '🌾'
+    };
+
+    // Product default icons (fallback when no image)
+    const productIcons = {
+      'fruit': '🍎',
+      'vegetable': '🥬',
+      'seafood': '🦐',
+      'meat': '🥩',
+      'dairy': '🥛',
+      'grain': '🌾'
+    };
+
+    // ========== Init ==========
+    async function init() {
+      try {
+        const res = await fetch('products.json');
+        storeData = await res.json();
+      } catch(e) {
+        console.error('Failed to load products.json:', e);
+        // Use embedded fallback data
+        storeData = getFallbackData();
+      }
+
+      renderHeader();
+      renderBanners();
+      renderCategories();
+      renderProducts();
+      showPopup();
+    }
+
+    // ========== Render: Header ==========
+    function renderHeader() {
+      // Already rendered in HTML, update if needed
+    }
+
+    // ========== Render: Banners ==========
+    function renderBanners() {
+      const track = document.getElementById('bannerTrack');
+      const dots = document.getElementById('bannerDots');
+      const banners = storeData.banners;
+
+      track.innerHTML = banners.map((b, i) => `
+        <div class="banner-slide">
+          <div class="banner-placeholder">
+            <div class="banner-title">${b.title}</div>
+            <div class="banner-subtitle">${b.subtitle}</div>
+          </div>
+        </div>
+      `).join('');
+
+      dots.innerHTML = banners.map((_, i) =>
+        `<span class="${i === 0 ? 'active' : ''}" data-index="${i}"></span>`
+      ).join('');
+
+      // Dot click
+      dots.addEventListener('click', (e) => {
+        if (e.target.tagName === 'SPAN') {
+          goToBanner(parseInt(e.target.dataset.index));
+        }
+      });
+
+      // Touch swipe
+      let startX = 0;
+      const carousel = document.querySelector('.banner-carousel');
+      carousel.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
+      carousel.addEventListener('touchend', (e) => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) goToBanner((bannerIndex + 1) % banners.length);
+          else goToBanner((bannerIndex - 1 + banners.length) % banners.length);
+        }
+      });
+
+      startBannerAutoPlay();
+    }
+
+    function goToBanner(index) {
+      const banners = storeData.banners;
+      bannerIndex = index;
+      document.getElementById('bannerTrack').style.transform = `translateX(-${index * 100}%)`;
+      document.querySelectorAll('.banner-dots span').forEach((d, i) => {
+        d.classList.toggle('active', i === index);
+      });
+    }
+
+    function startBannerAutoPlay() {
+      if (bannerTimer) clearInterval(bannerTimer);
+      bannerTimer = setInterval(() => {
+        goToBanner((bannerIndex + 1) % storeData.banners.length);
+      }, 4000);
+    }
+
+    // ========== Render: Categories ==========
+    function renderCategories() {
+      const sidebar = document.getElementById('categorySidebar');
+      sidebar.innerHTML = storeData.categories.map(cat => `
+        <div class="category-item ${cat.id === currentCategory ? 'active' : ''}"
+             data-id="${cat.id}"
+             onclick="switchCategory('${cat.id}')">
+          <span class="cat-icon">${categoryIcons[cat.id] || '📋'}</span>
+          <span>${cat.name}</span>
+        </div>
+      `).join('');
+    }
+
+    function switchCategory(catId) {
+      currentCategory = catId;
+      renderCategories();
+      renderProducts();
+    }
+
+    // ========== Render: Products ==========
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      let products = storeData.products;
+
+      if (currentCategory !== 'all') {
+        products = products.filter(p => p.category === currentCategory);
+      }
+
+      if (products.length === 0) {
+        grid.innerHTML = '<div class="empty-state">暂无该分类商品</div>';
+        return;
+      }
+
+      grid.innerHTML = products.map(p => {
+        const icon = productIcons[p.category] || '🛒';
+        const tagsHtml = (p.tags || []).map(t =>
+          `<span class="product-tag ${t.includes('特价') || t.includes('限时') ? 'sale' : ''}">${t}</span>`
+        ).join('');
+
+        return `
+          <div class="product-card">
+            <div class="product-img-placeholder">${icon}</div>
+            <div class="product-info">
+              <div class="product-name">${p.name}</div>
+              <div class="product-spec">${p.spec} · ${p.origin}</div>
+              <div class="product-tags">${tagsHtml}</div>
+              <div class="product-price-row">
+                <div>
+                  <span class="product-price"><span class="yen">¥</span>${p.price}</span>
+                  ${p.originalPrice ? `<span class="product-original-price">¥${p.originalPrice}</span>` : ''}
+                </div>
+                <button class="buy-btn" onclick="handleBuy('${p.name}')">购买</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleBuy(name) {
+      // Currently just calls the store
+      window.location.href = 'tel:16888888888';
+    }
+
+    // ========== Popup ==========
+    function showPopup() {
+      if (!storeData.popup || !storeData.popup.enabled) return;
+
+      // Check if already shown today
+      const today = new Date().toDateString();
+      const lastShown = localStorage.getItem('popup_shown_date');
+      if (lastShown === today) return;
+
+      const overlay = document.getElementById('popupOverlay');
+      const imageArea = document.getElementById('popupImageArea');
+      const title = document.getElementById('popupTitle');
+      const items = document.getElementById('popupItems');
+
+      imageArea.innerHTML = '<div class="popup-image-placeholder">🎉</div>';
+      title.textContent = storeData.popup.title;
+      items.innerHTML = storeData.popup.items.map(item =>
+        `<div class="activity-item">${item}</div>`
+      ).join('');
+
+      overlay.classList.add('show');
+    }
+
+    function closePopup() {
+      const overlay = document.getElementById('popupOverlay');
+      overlay.classList.remove('show');
+      localStorage.setItem('popup_shown_date', new Date().toDateString());
+    }
+
+    document.getElementById('popupClose').addEventListener('click', closePopup);
+    document.getElementById('popupX').addEventListener('click', closePopup);
+    document.getElementById('popupOverlay').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closePopup();
+    });
+
+    // ========== Fallback Data ==========
+    function getFallbackData() {
+      return {
+        store: { name: "森炫食材商行", contact: "王振超", phone: "16888888888" },
+        banners: [
+          { title: "今日鲜选 · 产地直发", subtitle: "新鲜到家 品质保障" },
+          { title: "海鲜季 鲜到家", subtitle: "活鲜直达 每日上新" },
+          { title: "新人专享 首单立减", subtitle: "注册即享 限时优惠" }
+        ],
+        popup: {
+          enabled: true,
+          title: "🎊 今日活动",
+          items: ["🍎 鲜果限时5折起", "🦐 海鲜满99减20", "🥬 蔬菜买二送一"]
+        },
+        categories: [
+          { id: "all", name: "全部" },
+          { id: "fruit", name: "水果" },
+          { id: "vegetable", name: "蔬菜" },
+          { id: "seafood", name: "海鲜" },
+          { id: "meat", name: "肉禽蛋" },
+          { id: "dairy", name: "乳品烘焙" },
+          { id: "grain", name: "粮油调味" }
+        ],
+        products: [
+          { id: "p001", name: "烟台红富士苹果", category: "fruit", origin: "山东烟台", spec: "5斤装", price: 29.9, originalPrice: 49.9, tags: ["产地直发", "应季"] },
+          { id: "p002", name: "智利车厘子", category: "fruit", origin: "智利进口", spec: "2斤装", price: 59.9, originalPrice: 89.9, tags: ["进口", "限时特价"] },
+          { id: "p003", name: "有机小番茄", category: "vegetable", origin: "山东寿光", spec: "1斤装", price: 12.8, originalPrice: 19.9, tags: ["有机"] },
+          { id: "p004", name: "鲜活海白虾", category: "seafood", origin: "渤海野生", spec: "1斤装", price: 45.0, originalPrice: 68.0, tags: ["活鲜", "限时特价"] },
+          { id: "p005", name: "澳洲谷饲牛腱子", category: "meat", origin: "澳洲进口", spec: "1斤装", price: 38.5, originalPrice: 55.0, tags: ["进口"] },
+          { id: "p006", name: "新希望鲜牛奶", category: "dairy", origin: "四川成都", spec: "950ml", price: 15.9, originalPrice: 22.0, tags: ["当日鲜配"] },
+          { id: "p007", name: "五常稻花香大米", category: "grain", origin: "黑龙江五常", spec: "10斤装", price: 69.9, originalPrice: 99.0, tags: ["产地直发"] }
+        ]
+      };
+    }
+
+    // ========== Start ==========
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+
+</body>
+</html>

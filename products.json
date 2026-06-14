@@ -1,0 +1,210 @@
+{
+  "store": {
+    "name": "森炫食材商行",
+    "contact": "王振超",
+    "phone": "16888888888"
+  },
+  "banners": [
+    {
+      "image": "images/banner1.jpg",
+      "title": "今日鲜选 · 产地直发",
+      "subtitle": "新鲜到家 品质保障"
+    },
+    {
+      "image": "images/banner2.jpg",
+      "title": "海鲜季 鲜到家",
+      "subtitle": "活鲜直达 每日上新"
+    },
+    {
+      "image": "images/banner3.jpg",
+      "title": "新人专享 首单立减",
+      "subtitle": "注册即享 限时优惠"
+    }
+  ],
+  "popup": {
+    "enabled": true,
+    "image": "images/popup.jpg",
+    "title": "🎊 今日活动",
+    "items": [
+      "🍎 鲜果限时5折起",
+      "🦐 海鲜满99减20",
+      "🥬 蔬菜买二送一"
+    ]
+  },
+  "categories": [
+    { "id": "all", "name": "全部" },
+    { "id": "fruit", "name": "水果" },
+    { "id": "vegetable", "name": "蔬菜" },
+    { "id": "seafood", "name": "海鲜" },
+    { "id": "meat", "name": "肉禽蛋" },
+    { "id": "dairy", "name": "乳品烘焙" },
+    { "id": "grain", "name": "粮油调味" }
+  ],
+  "products": [
+    {
+      "id": "p001",
+      "name": "烟台红富士苹果",
+      "category": "fruit",
+      "origin": "山东烟台",
+      "image": "images/apple.jpg",
+      "spec": "5斤装",
+      "price": 29.9,
+      "originalPrice": 49.9,
+      "tags": ["产地直发", "应季"]
+    },
+    {
+      "id": "p002",
+      "name": "智利车厘子",
+      "category": "fruit",
+      "origin": "智利进口",
+      "image": "images/cherry.jpg",
+      "spec": "2斤装",
+      "price": 59.9,
+      "originalPrice": 89.9,
+      "tags": ["进口", "限时特价"]
+    },
+    {
+      "id": "p003",
+      "name": "海南金煌芒果",
+      "category": "fruit",
+      "origin": "海南三亚",
+      "image": "images/mango.jpg",
+      "spec": "5斤装",
+      "price": 39.9,
+      "originalPrice": 65.0,
+      "tags": ["产地直发"]
+    },
+    {
+      "id": "p004",
+      "name": "有机小番茄",
+      "category": "vegetable",
+      "origin": "山东寿光",
+      "image": "images/tomato.jpg",
+      "spec": "1斤装",
+      "price": 12.8,
+      "originalPrice": 19.9,
+      "tags": ["有机", "产地直发"]
+    },
+    {
+      "id": "p005",
+      "name": "云南高山娃娃菜",
+      "category": "vegetable",
+      "origin": "云南昆明",
+      "image": "images/babycabbage.jpg",
+      "spec": "3颗装",
+      "price": 8.5,
+      "originalPrice": 12.0,
+      "tags": ["产地直发"]
+    },
+    {
+      "id": "p006",
+      "name": "鲜活海白虾",
+      "category": "seafood",
+      "origin": "渤海野生",
+      "image": "images/shrimp.jpg",
+      "spec": "1斤装",
+      "price": 45.0,
+      "originalPrice": 68.0,
+      "tags": ["活鲜", "限时特价"]
+    },
+    {
+      "id": "p007",
+      "name": "大连鲍鱼",
+      "category": "seafood",
+      "origin": "辽宁大连",
+      "image": "images/abalone.jpg",
+      "spec": "6头装",
+      "price": 58.0,
+      "originalPrice": 88.0,
+      "tags": ["产地直发"]
+    },
+    {
+      "id": "p008",
+      "name": "澳洲谷饲牛腱子",
+      "category": "meat",
+      "origin": "澳洲进口",
+      "image": "images/beef.jpg",
+      "spec": "1斤装",
+      "price": 38.5,
+      "originalPrice": 55.0,
+      "tags": ["进口", "冷链配送"]
+    },
+    {
+      "id": "p009",
+      "name": "散养土鸡蛋",
+      "category": "meat",
+      "origin": "河南信阳",
+      "image": "images/eggs.jpg",
+      "spec": "30枚装",
+      "price": 32.0,
+      "originalPrice": 45.0,
+      "tags": ["产地直发"]
+    },
+    {
+      "id": "p010",
+      "name": "新希望鲜牛奶",
+      "category": "dairy",
+      "origin": "四川成都",
+      "image": "images/milk.jpg",
+      "spec": "950ml",
+      "price": 15.9,
+      "originalPrice": 22.0,
+      "tags": ["当日鲜配"]
+    },
+    {
+      "id": "p011",
+      "name": "手工全麦面包",
+      "category": "dairy",
+      "origin": "本地烘焙",
+      "image": "images/bread.jpg",
+      "spec": "400g",
+      "price": 18.0,
+      "originalPrice": 25.0,
+      "tags": ["当日现烤"]
+    },
+    {
+      "id": "p012",
+      "name": "五常稻花香大米",
+      "category": "grain",
+      "origin": "黑龙江五常",
+      "image": "images/rice.jpg",
+      "spec": "10斤装",
+      "price": 69.9,
+      "originalPrice": 99.0,
+      "tags": ["产地直发", "应季"]
+    },
+    {
+      "id": "p013",
+      "name": "初榨花生油",
+      "category": "grain",
+      "origin": "山东临沂",
+      "image": "images/oil.jpg",
+      "spec": "5L",
+      "price": 89.0,
+      "originalPrice": 119.0,
+      "tags": ["产地直发"]
+    },
+    {
+      "id": "p014",
+      "name": "千禧圣女果",
+      "category": "vegetable",
+      "origin": "广西北海",
+      "image": "images/cherrytomato.jpg",
+      "spec": "1斤装",
+      "price": 9.9,
+      "originalPrice": 15.0,
+      "tags": ["应季"]
+    },
+    {
+      "id": "p015",
+      "name": "阳澄湖大闸蟹",
+      "category": "seafood",
+      "origin": "苏州阳澄湖",
+      "image": "images/crab.jpg",
+      "spec": "4两公蟹4只",
+      "price": 128.0,
+      "originalPrice": 198.0,
+      "tags": ["产地直发", "限时特价"]
+    }
+  ]
+}
